@@ -28,7 +28,7 @@ public class EmployeeRepositoryMongoTemplate {
     
     public List<Employee> templateFindTest(Date date){
         
-        return mongoTemplate.find(new Query(Criteria.where("hireDate").gt(date)), Employee.class);
+        return mongoTemplate.find(new Query(Criteria.where("hireDate").lt(date)), Employee.class);
     }
     public Document templateExecCommandTest(){
         
