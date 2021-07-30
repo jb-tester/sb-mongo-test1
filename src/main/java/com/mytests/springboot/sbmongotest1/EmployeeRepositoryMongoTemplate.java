@@ -32,8 +32,11 @@ public class EmployeeRepositoryMongoTemplate {
     }
     public Document templateExecCommandTest(){
         
-        return mongoTemplate.executeCommand("{\n" +
-                "  \"find\": {\"project\":\"idea\"}" +
+        return mongoTemplate.executeCommand(
+                "{\n" +
+                        "  find : \"employees\",\n" +
+                        "  filter: " +
+                        "{ Project :\"idea\"}" +
                 " \n" +
                 "}");
     }
