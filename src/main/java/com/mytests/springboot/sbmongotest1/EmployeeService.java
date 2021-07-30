@@ -16,9 +16,10 @@ import java.util.Date;
 public class EmployeeService {
 
     @Autowired private EmployeeRepo employeeRepo;
-    @Autowired
-    EmployeeRepoMongoOperations newEmployeeRepo;
-    
+    @Autowired EmployeeRepoMongoOperations newEmployeeRepo;
+    @Autowired EmployeeRepositoryMongoTemplate employeeRepositoryMongoTemplate;
+
+
     public void displayAll(){
         System.out.println("**********************************");
         System.out.println("-- all existing employee:");
@@ -41,6 +42,18 @@ public class EmployeeService {
             System.out.println(employee.toString());
         }
         System.out.println("**********************************");
+        System.out.println("-- mongoTemplate.basicQuery  (all by project):");
+        for (Employee employee : employeeRepositoryMongoTemplate.basicQueryTest()) {
+            System.out.println(employee.toString());
+        }
+        System.out.println("**********************************");
+        System.out.println("-- mongoTemplate.executeCommand(json) (all by project):");
+            System.out.println(employeeRepositoryMongoTemplate.templateExecCommandTest().toJson());
+        System.out.println("**********************************");
+        System.out.println("-- mongoTemplate.find  (by hire_date < today):");
+        for (Employee employee : employeeRepositoryMongoTemplate.templateFindTest(new Date())) {
+            System.out.println(employee.toString());
+        }
     }
 
     public void setUpDB(){
