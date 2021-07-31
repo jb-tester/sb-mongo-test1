@@ -24,8 +24,8 @@ public class EmployeeRepoMongoOperations implements NewEmployeeRepo {
     MongoOperations operations;
     
     @Override
-    public List<Employee> findAllByProjectAndHireDates(String project, Date from, Date to) {
-        Criteria criteria = Criteria.where("hireDate").gte(from).andOperator(Criteria.where("date").lt(to)).and("project").is(project);
+    public List<Employee> findAllByProjectAndHireDateBetween(String project, Date from, Date to) {
+        Criteria criteria = Criteria.where("hireDate").gte(from).andOperator(Criteria.where("hireDate").lt(to)).and("project").is(project);
         Query query = query(criteria);
         return operations.find(query, Employee.class);
     }

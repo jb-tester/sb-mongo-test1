@@ -39,8 +39,8 @@ public class EmployeeService {
         System.out.println("**********************************");
         System.out.println("-- MongoOperations.find(criteria) (all by project and hire date period):");
         Date from_date = new Date(100, Calendar.JANUARY, 1);
-        Date to_date = new Date(104,Calendar.DECEMBER,31);
-        for (Employee employee : newEmployeeRepo.findAllByProjectAndHireDates("idea", from_date, to_date)) {
+        Date to_date = new Date(105,Calendar.DECEMBER,31);
+        for (Employee employee : newEmployeeRepo.findAllByProjectAndHireDateBetween("idea", from_date, to_date)) {
             System.out.println(employee.toString());
         }
         System.out.println("**********************************");
