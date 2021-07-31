@@ -63,7 +63,8 @@ public class EmployeeService {
         addPerson("irina p", "platform qa", new Date(106, Calendar.SEPTEMBER,1));
         addPerson("katya a", "platform qa", new Date(119, Calendar.JULY,22));
         addPerson("nastya s", "platform qa", new Date(119, Calendar.APRIL,15));
-        addPerson("maxim m", "idea", new Date(104, Calendar.MARCH,1));
+        addPerson("maxim m", "idea", new Date(103, Calendar.MARCH,1));
+        addPerson("anna k", "idea", new Date(104, Calendar.MARCH,1));
         addPerson("sergey v", "idea", new Date(104, Calendar.NOVEMBER,1));
         addPerson("sasha b", "idea", new Date(120, Calendar.SEPTEMBER,1));
 

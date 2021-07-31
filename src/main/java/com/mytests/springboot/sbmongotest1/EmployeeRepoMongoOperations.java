@@ -3,6 +3,7 @@ package com.mytests.springboot.sbmongotest1;
 import static org.springframework.data.mongodb.core.query.Criteria.*;
 import static org.springframework.data.mongodb.core.query.Query.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -26,7 +27,8 @@ public class EmployeeRepoMongoOperations implements NewEmployeeRepo {
     @Override
     public List<Employee> findAllByProjectAndHireDateBetween(String project, Date from, Date to) {
         Criteria criteria = Criteria.where("hireDate").gte(from).andOperator(Criteria.where("hireDate").lt(to)).and("project").is(project);
-        Query query = query(criteria);
+        Query query = query(criteria).with(Sort.by(Sort.Direction.DESC, "name"));
+        query.fields().exclude("hireDate");
         return operations.find(query, Employee.class);
     }
 
