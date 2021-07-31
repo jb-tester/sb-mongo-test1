@@ -26,9 +26,9 @@ public class EmployeeRepositoryMongoTemplate {
     @Autowired
     private MongoTemplate mongoTemplate;
     
-    public List<Employee> templateFindTest(Date date){
+    public List<Employee> templateFindTest(Date date, String project){
         
-        return mongoTemplate.find(new Query(Criteria.where("hireDate").lt(date)), Employee.class);
+        return mongoTemplate.find(new Query(Criteria.where("hireDate").lt(date).and("project").is(project)), Employee.class);
     }
     public Document templateExecCommandTest(){
         

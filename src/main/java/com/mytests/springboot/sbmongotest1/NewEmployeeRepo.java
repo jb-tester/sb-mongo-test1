@@ -2,6 +2,7 @@ package com.mytests.springboot.sbmongotest1;
 
 import org.springframework.data.repository.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface NewEmployeeRepo extends Repository<Employee, Long> {
     
-    List<Employee> findAllByProject(String project);
+    List<Employee> findAllByProjectAndHireDates(String project, Date from, Date to);
     Employee findByName(String name);
     Employee save(Employee employee);
 }

@@ -38,7 +38,9 @@ public class EmployeeService {
        
         System.out.println("**********************************");
         System.out.println("-- MongoOperations.find(criteria) (all by project):");
-        for (Employee employee : newEmployeeRepo.findAllByProject("idea")) {
+        Date from_date = new Date(100, Calendar.JANUARY, 1);
+        Date to_date = new Date(104,Calendar.DECEMBER,31);
+        for (Employee employee : newEmployeeRepo.findAllByProjectAndHireDates("idea", from_date, to_date)) {
             System.out.println(employee.toString());
         }
         System.out.println("**********************************");
@@ -51,7 +53,7 @@ public class EmployeeService {
             System.out.println(employeeRepositoryMongoTemplate.templateExecCommandTest().toJson());
         System.out.println("**********************************");
         System.out.println("-- mongoTemplate.find  (by hire_date < today):");
-        for (Employee employee : employeeRepositoryMongoTemplate.templateFindTest(new Date())) {
+        for (Employee employee : employeeRepositoryMongoTemplate.templateFindTest(new Date(),"idea")) {
             System.out.println(employee.toString());
         }
     }
