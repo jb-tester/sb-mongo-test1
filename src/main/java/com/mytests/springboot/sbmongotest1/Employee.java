@@ -1,8 +1,7 @@
 package com.mytests.springboot.sbmongotest1;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigInteger;
@@ -24,6 +23,10 @@ public class Employee {
     String project;
     @Field("Hire_Date")
     Date hireDate;
+    @Field("Sick_Days")
+    int sickDays;
+    @Field("Vacations")
+    int availableVacationDays;
 
     public BigInteger getId() {
         return id;
@@ -57,13 +60,29 @@ public class Employee {
         this.hireDate = hireDate;
     }
 
-
-
-    public Employee(String name, String project, Date hireDate) {
+    public Employee(String name, String project, Date hireDate, int sickDays, int availableVacationDays) {
 
         this.name = name;
         this.project = project;
         this.hireDate = hireDate;
+        this.sickDays = sickDays;
+        this.availableVacationDays = availableVacationDays;
+    }
+
+    public int getSickDays() {
+        return sickDays;
+    }
+
+    public void setSickDays(int sickDays) {
+        this.sickDays = sickDays;
+    }
+
+    public int getAvailableVacationDays() {
+        return availableVacationDays;
+    }
+
+    public void setAvailableVacationDays(int availableVacationDays) {
+        this.availableVacationDays = availableVacationDays;
     }
 
     @Override

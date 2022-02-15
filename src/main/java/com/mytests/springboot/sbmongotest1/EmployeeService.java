@@ -32,14 +32,30 @@ public class EmployeeService {
             System.out.println(employee.toString());
         }
         System.out.println("**********************************");
+        System.out.println("-- @Query (by project and date before specified)");
+        for (Employee employee : employeeRepo.getProjectVeterans(new Date(104, Calendar.DECEMBER, 1), "idea")) {
+            System.out.println(employee.toString());
+        }
+        System.out.println("**********************************");
+        System.out.println("-- @Query (complex)");
+        for (Employee employee : employeeRepo.gotoDoctor(new Date(104, Calendar.DECEMBER, 1))) {
+            System.out.println(employee.toString());
+        }
+
+        System.out.println("**********************************");
+        System.out.println("-- just column name");
+        for (Employee employee : employeeRepo.sickDaysGreaterThanAndNameLike(7, "kat")) {
+            System.out.println(employee.toString());
+        }
+        System.out.println("**********************************");
         System.out.println("-- MongoOperations.findOne(criteria) (one by name):");
-        
-            System.out.println(newEmployeeRepo.findByName("maxim m").toString());
-       
+
+        System.out.println(newEmployeeRepo.findByName("maxim m").toString());
+
         System.out.println("**********************************");
         System.out.println("-- MongoOperations.find(criteria) (all by project and hire date period):");
         Date from_date = new Date(100, Calendar.JANUARY, 1);
-        Date to_date = new Date(105,Calendar.DECEMBER,31);
+        Date to_date = new Date(105, Calendar.DECEMBER, 31);
         for (Employee employee : newEmployeeRepo.findAllByProjectAndHireDateBetween("idea", from_date, to_date)) {
             System.out.println(employee.toString());
         }
@@ -58,18 +74,19 @@ public class EmployeeService {
         }
     }
 
-    public void setUpDB(){
+    public void setUpDB() {
         employeeRepo.deleteAll();
-        addPerson("irina p", "platform qa", new Date(106, Calendar.SEPTEMBER,1));
-        addPerson("katya a", "platform qa", new Date(119, Calendar.JULY,22));
-        addPerson("nastya s", "platform qa", new Date(119, Calendar.APRIL,15));
-        addPerson("maxim m", "idea", new Date(103, Calendar.MARCH,1));
-        addPerson("anna k", "idea", new Date(104, Calendar.MARCH,1));
-        addPerson("sergey v", "idea", new Date(104, Calendar.NOVEMBER,1));
-        addPerson("sasha b", "idea", new Date(120, Calendar.SEPTEMBER,1));
+        addPerson("irina p", "platform qa", new Date(106, Calendar.SEPTEMBER, 1), 7, 10);
+        addPerson("katya a", "platform qa", new Date(119, Calendar.JULY, 22), 30, 10);
+        addPerson("nastya s", "platform qa", new Date(119, Calendar.APRIL, 15), 5, 5);
+        addPerson("maxim m", "idea", new Date(103, Calendar.MARCH, 1), 1, 24);
+        addPerson("anna k", "idea", new Date(104, Calendar.MARCH, 1), 5, 24);
+        addPerson("sergey v", "idea", new Date(104, Calendar.NOVEMBER, 1), 0, 14);
+        addPerson("sasha b", "idea", new Date(120, Calendar.SEPTEMBER, 1), 5, 0);
 
     }
-    void addPerson(String name, String project, Date date){
-        newEmployeeRepo.save(new Employee(name, project, date));
+
+    void addPerson(String name, String project, Date date, int sickDays, int vacations) {
+        newEmployeeRepo.save(new Employee(name, project, date, sickDays, vacations));
     }
 }
