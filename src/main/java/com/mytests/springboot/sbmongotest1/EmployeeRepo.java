@@ -2,6 +2,7 @@ package com.mytests.springboot.sbmongotest1;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -15,14 +16,19 @@ import java.util.List;
 
 public interface EmployeeRepo extends MongoRepository<Employee, Long> {
 
-    @Query(value = "{'project':?0}", fields = "{'name': 1,'project':1,'sickDays':1,'availableVacationDays':1}", sort = "{'name': -1}")
+    String Q1 = "{project: ?1, hireDate: {$lt: ?0}}";
+
+    @Query(value = "{'project':?0}", fields = "{'name': 1,'project':1,'sickDays':1,'availableVacationDays':1}", sort = "{'name': -1}", collation = "{ 'locale' :  'en_US' }")
     List<Employee> findByProjectFiltered(String name);
 
-    @Query(value = "{project: ?1, hireDate: {$lt: ?0}}")
+    @Query(value = Q1)
     List<Employee> getProjectVeterans(Date date, String project);
 
     @Query("{$or : [{$and : [{'sickDays': {$gt: 14}}, {'availableVacationDays' : {$lt: 20}}]}, {'sickDays': {$gt: 30}}, {'hireDate': {$lt: ?0}}]}")
     List<Employee> gotoDoctor(Date date);
+
+    @Query("{'project' : :#{#project}, 'availableVacationDays' : :#{#vacations}}")
+    List<Employee> byProjectAndVacationDays(@Param("project") String pr, @Param("vacations") int days);
 
     List<Employee> getEmployeesByHireDateBeforeAndSickDaysGreaterThan(Date hireDate, int sickDays);
 

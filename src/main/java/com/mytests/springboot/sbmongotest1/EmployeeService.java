@@ -41,7 +41,11 @@ public class EmployeeService {
         for (Employee employee : employeeRepo.gotoDoctor(new Date(104, Calendar.DECEMBER, 1))) {
             System.out.println(employee.toString());
         }
-
+        System.out.println("**********************************");
+        System.out.println("-- @Query with SpEL");
+        for (Employee employee : employeeRepo.byProjectAndVacationDays("idea", 24)) {
+            System.out.println(employee.toString());
+        }
         System.out.println("**********************************");
         System.out.println("-- just column name");
         for (Employee employee : employeeRepo.sickDaysGreaterThanAndNameLike(7, "kat")) {
