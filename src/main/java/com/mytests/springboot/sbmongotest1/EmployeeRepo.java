@@ -33,6 +33,13 @@ public interface EmployeeRepo extends MongoRepository<Employee, Long> {
     @Query("{'project' : {$in: [?0, ?1]}, 'name': {$nin: ['vasya','petya']}}")
     List<Employee> byProjects(String p1, String p2);
 
+    @Query("{$nor: [{'sickDays': { $not: { $gte: 7 } }}, {\"hireDate\" : {$not: { $type : \"date\" } }} ]} ")
+    List<Employee> testOperators();
+
+    @Query("{ $expr: { $gt: [ '$sickDays' , '$availableVacationDays' ] } }")
+        // doesn't work for now
+    List<Employee> hrCheck();
+
     List<Employee> getEmployeesByHireDateBeforeAndSickDaysGreaterThan(Date hireDate, int sickDays);
 
     List<Employee> sickDaysGreaterThanAndNameLike(int d, String n);

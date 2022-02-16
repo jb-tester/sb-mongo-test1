@@ -52,6 +52,16 @@ public class EmployeeService {
             System.out.println(employee.toString());
         }
         System.out.println("**********************************");
+        System.out.println("-- @Query operators");
+        for (Employee employee : employeeRepo.testOperators()) {
+            System.out.println(employee.toString());
+        }
+        System.out.println("**********************************");
+        System.out.println("-- @Query $expr operator");
+        for (Employee employee : employeeRepo.hrCheck()) {
+            System.out.println(employee.toString());
+        }
+        System.out.println("**********************************");
         System.out.println("-- just column name");
         for (Employee employee : employeeRepo.sickDaysGreaterThanAndNameLike(7, "kat")) {
             System.out.println(employee.toString());
