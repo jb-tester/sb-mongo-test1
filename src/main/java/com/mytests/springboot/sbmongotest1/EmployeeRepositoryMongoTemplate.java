@@ -1,7 +1,5 @@
 package com.mytests.springboot.sbmongotest1;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -36,14 +34,14 @@ public class EmployeeRepositoryMongoTemplate {
                 "{\n" +
                         "  find : \"employees\",\n" +
                         "  filter: " +
-                        "{ Project :\"idea\"}" +
-                " \n" +
-                "}");
+                        "{ Project :\"mega\"}" +
+                        " \n" +
+                        "}");
     }
     
     public List<Employee> basicQueryTest(){
 
-        BasicQuery query = new BasicQuery("{'project':'platform qa'}");
+        BasicQuery query = new BasicQuery("{'project':'services'}");
         return mongoTemplate.find(query, Employee.class);
     }
 }
