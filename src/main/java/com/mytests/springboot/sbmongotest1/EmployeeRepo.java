@@ -30,6 +30,9 @@ public interface EmployeeRepo extends MongoRepository<Employee, Long> {
     @Query("{'project' : :#{#project}, 'availableVacationDays' : :#{#vacations}}")
     List<Employee> byProjectAndVacationDays(@Param("project") String pr, @Param("vacations") int days);
 
+    @Query("{'project' : {$in: [?0, ?1]}, 'name': {$nin: ['vasya','petya']}}")
+    List<Employee> byProjects(String p1, String p2);
+
     List<Employee> getEmployeesByHireDateBeforeAndSickDaysGreaterThan(Date hireDate, int sickDays);
 
     List<Employee> sickDaysGreaterThanAndNameLike(int d, String n);

@@ -47,6 +47,11 @@ public class EmployeeService {
             System.out.println(employee.toString());
         }
         System.out.println("**********************************");
+        System.out.println("-- @Query $in operator");
+        for (Employee employee : employeeRepo.byProjects("idea", "webstorm")) {
+            System.out.println(employee.toString());
+        }
+        System.out.println("**********************************");
         System.out.println("-- just column name");
         for (Employee employee : employeeRepo.sickDaysGreaterThanAndNameLike(7, "kat")) {
             System.out.println(employee.toString());
@@ -87,6 +92,8 @@ public class EmployeeService {
         addPerson("anna k", "idea", new Date(104, Calendar.MARCH, 1), 5, 24);
         addPerson("sergey v", "idea", new Date(104, Calendar.NOVEMBER, 1), 0, 14);
         addPerson("sasha b", "idea", new Date(120, Calendar.SEPTEMBER, 1), 5, 0);
+        addPerson("lena p", "webstorm", new Date(110, Calendar.SEPTEMBER, 1), 5, 0);
+        addPerson("andrey s", "webstorm", new Date(111, Calendar.SEPTEMBER, 1), 5, 0);
 
     }
 
