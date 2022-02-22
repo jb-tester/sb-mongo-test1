@@ -16,7 +16,7 @@ import java.util.List;
 
 public interface EmployeeRepo extends MongoRepository<Employee, Long> {
 
-    String Q1 = "{project: ?1, hireDate: {$lt: ?0}}";
+    String Q1 = "{\"project\": ?1, \"hireDate\": {$lt: ?0}}";
 
     @Query(value = "{'project':?0}", fields = "{'name': 1,'project':1,'sickDays':1,'availableVacationDays':1}", sort = "{'name': -1}", collation = "{ 'locale' :  'en_US' }")
     List<Employee> findByProjectFiltered(String name);
@@ -33,7 +33,7 @@ public interface EmployeeRepo extends MongoRepository<Employee, Long> {
     @Query("{'project' : {$in: [?0, ?1]}, 'name': {$nin: ['vasya','petya']}}")
     List<Employee> byProjects(String p1, String p2);
 
-    @Query("{$nor: [{'sickDays': { $not: { $gte: 7 } }}, {\"hireDate\" : {$not: { $type : \"date\" } }} ]} ")
+    @Query("{$nor: [{\"sickDays\": { $not: { $gte: 7 } }}, {\"hireDate\" : {$not: { $type : \"date\" } }} ]} ")
     List<Employee> testOperators();
 
     @Query("{ $expr: { $gt: [ '$sickDays' , '$availableVacationDays' ] } }")
