@@ -13,7 +13,8 @@ import java.util.List;
  */
 public interface NewEmployeeRepo extends Repository<Employee, Long> {
     
-    List<Employee> findAllByProjectAndHireDateBetween(String project, Date from, Date to);
+    List<Employee> findAllByTeamAndHireDateBetween(String project, Date from, Date to);
+
     Employee findByName(String name);
     Employee save(Employee employee);
 }

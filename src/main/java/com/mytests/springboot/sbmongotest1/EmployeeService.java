@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * *******************************
@@ -67,6 +68,18 @@ public class EmployeeService {
             System.out.println(employee.toString());
         }
         System.out.println("**********************************");
+        System.out.println("-- compare field name with column name using ---");
+        List<Employee> test1 = employeeRepo.test1(10, "services");
+        System.out.println("by fields:");
+        for (Employee employee : test1) {
+            System.out.println(employee);
+        }
+        List<Employee> test2 = employeeRepo.test2(10, "services");
+        System.out.println("by columns:");
+        for (Employee employee : test2) {
+            System.out.println(employee);
+        }
+        System.out.println("**********************************");
         System.out.println("-- MongoOperations.findOne(criteria) (one by name):");
 
         System.out.println(newEmployeeRepo.findByName("maxim").toString());
@@ -75,11 +88,11 @@ public class EmployeeService {
         System.out.println("-- MongoOperations.find(criteria) (all by project and hire date period):");
         Date from_date = new Date(100, Calendar.JANUARY, 1);
         Date to_date = new Date(105, Calendar.DECEMBER, 31);
-        for (Employee employee : newEmployeeRepo.findAllByProjectAndHireDateBetween("mega", from_date, to_date)) {
+        for (Employee employee : newEmployeeRepo.findAllByTeamAndHireDateBetween("mega", from_date, to_date)) {
             System.out.println(employee.toString());
         }
         System.out.println("**********************************");
-        System.out.println("-- mongoTemplate.basicQuery  (all by project):");
+        System.out.println("-- mongoTemplate.basicQuery  (all by project and few vacation days):");
         for (Employee employee : employeeRepositoryMongoTemplate.basicQueryTest()) {
             System.out.println(employee.toString());
         }

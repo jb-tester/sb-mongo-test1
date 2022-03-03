@@ -20,7 +20,7 @@ public class Employee {
     @Field("Full_Name")
     String name;
     @Field("Project")
-    String project;
+    String team;
     @Field("Hire_Date")
     Date hireDate;
     @Field("Sick_Days")
@@ -44,12 +44,17 @@ public class Employee {
         this.name = name;
     }
 
-    public String getProject() {
-        return project;
+    public Employee(String name, String team, Date hireDate, int sickDays, int availableVacationDays) {
+
+        this.name = name;
+        this.team = team;
+        this.hireDate = hireDate;
+        this.sickDays = sickDays;
+        this.availableVacationDays = availableVacationDays;
     }
 
-    public void setProject(String project) {
-        this.project = project;
+    public String getTeam() {
+        return team;
     }
 
     public Date getHireDate() {
@@ -60,13 +65,8 @@ public class Employee {
         this.hireDate = hireDate;
     }
 
-    public Employee(String name, String project, Date hireDate, int sickDays, int availableVacationDays) {
-
-        this.name = name;
-        this.project = project;
-        this.hireDate = hireDate;
-        this.sickDays = sickDays;
-        this.availableVacationDays = availableVacationDays;
+    public void setTeam(String team) {
+        this.team = team;
     }
 
     public int getSickDays() {
@@ -87,11 +87,12 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee: " +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", project='" + project + '\'' +
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", team='" + team + '\'' +
                 ", hireDate=" + hireDate +
-                ' ';
+                ", sickDays=" + sickDays +
+                ", availableVacationDays=" + availableVacationDays +
+                '}';
     }
 }
