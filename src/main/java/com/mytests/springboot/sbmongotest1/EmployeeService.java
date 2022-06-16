@@ -80,6 +80,28 @@ public class EmployeeService {
             System.out.println(employee);
         }
         System.out.println("**********************************");
+        System.out.println("-- ObjectId() tests: ---");
+        System.out.println("-- ObjectId('?0'): ");
+        for (Employee employee : employeeRepo.findTheBigIds("62a9deb37f8ae31ce3487bab")) {
+            System.out.println(employee);
+        }
+
+        System.out.println("**********************************");
+        System.out.println("-- ISODate() test: ---");
+        for (Employee employee : employeeRepo.findTheOldEmployeeByISODate()) {
+            System.out.println(employee);
+        }
+        System.out.println("**********************************");
+        System.out.println("-- Date('...') test: ---");
+        for (Employee employee : employeeRepo.findTheOldEmployeeByDate()) {
+            System.out.println(employee);
+        }
+        System.out.println("**********************************");
+        System.out.println("-- new Date() test: ---");
+        for (Employee employee : employeeRepo.findTheOldEmployeeByDate2(new Date(104, Calendar.DECEMBER, 1))) {
+            System.out.println(employee);
+        }
+        System.out.println("**********************************");
         System.out.println("-- MongoOperations.findOne(criteria) (one by name):");
 
         System.out.println(newEmployeeRepo.findByName("maxim").toString());

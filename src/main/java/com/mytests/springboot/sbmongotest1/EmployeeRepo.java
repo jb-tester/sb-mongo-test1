@@ -54,18 +54,27 @@ public interface EmployeeRepo extends MongoRepository<Employee, Long> {
     @Query("{Project: ?0,Full_Name: ?1,Vacations: ?2}")
     List<Employee> test3(String team, String name, int vacations);
 
-    @Query("{ _id : {$gt: ObjectId('?0')}}")
-    List<Employee> findTheBigIds(String id);
+    @Query("{ _id : {$gt: ObjectId(?0)}}")
+    List<Employee> findTheBigIds(String hex_id);
 
-    @Query("{_id:{$gt: ObjectId(Math.floor((new Date('2022/01/01'))/1000).toString(16) + \"0000000000000000\")}}")
+    @Query("{ hireDate : {$gte : ISODate('2015-01-01')} }")
+    List<Employee> findTheOldEmployeeByISODate();
+
+    @Query("{ hireDate : {$gte : new Date( \"Thu May 15 2014 15:25:00 PDT\" )} }")
+    List<Employee> findTheOldEmployeeByDate();
+
+    @Query("{ hireDate : {$gte: ?0, $lt : new Date()} }")
+    List<Employee> findTheOldEmployeeByDate2(Date start);
+
+    /*@Query("{_id:{$gt: ObjectId(java.lang.Math.floor((new java.util.Date('2022/01/01'))/1000).toString(16) + '0000000000000000')}}")
     List<Employee> findTheIdsAfter();
 
-    @Query("{_id: {$gt: ObjectId.fromDate(new Date('2022-01-01')) } }")
+    @Query("{_id: {$gt: ObjectId.fromDate(new Date('2022-01-01'))} }")
     List<Employee> findIdsAfter();
 
     @Query("{_id: {$gt: ObjectId.fromDate('?0')} }")
-    List<Employee> findIdsAfterDate(Date date);
-    
+    List<Employee> findIdsAfterDate(Date date);*/
+
     List<Employee> getEmployeesByHireDateBeforeAndSickDaysGreaterThan(Date hireDate, int sickDays);
 
     List<Employee> sickDaysGreaterThanAndNameLike(int d, String n);
